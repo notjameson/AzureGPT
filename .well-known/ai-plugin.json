@@ -1,0 +1,18 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "Azure Pricing",
+    "name_for_model": "azurePricing",
+    "description_for_human": "Get current prices for Azure services.",
+    "description_for_model": "Get current prices for Azure services. Always display results using markdown tables.",
+    "auth": {
+        "type": "none"
+    },
+    "api": {
+        "type": "openapi",
+        "url": "http://localhost:5001/openapi.yaml",
+        "is_user_authenticated": false
+    },
+    "logo_url": "http://localhost:5001/logo.png",
+    "contact_email": "jamesonzaballos@gmail.com",
+    "legal_info_url": "https://example.com/legal"
+}

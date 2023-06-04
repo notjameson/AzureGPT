@@ -1,0 +1,779 @@
+openapi: 3.1.1
+info:
+  title: Azure Pricing
+  description: Get current prices for Azure services. Display the results as a markdown table.
+  version: "v1"
+servers:
+  - url: http://localhost:5001
+paths:
+  /pricing:
+    get:
+      operationId: getPricing
+      summary: Retrieves all pricing for all Azure services in the listed regions. If the customer doesn't specify a region, use the default eastus.
+      parameters:
+        - name: armRegionName
+          in: query
+          description: String region name for Azure region.
+          required: true
+          schema:
+            type: string
+            default: "eastus"
+            enum:
+            - eastus
+            - eastus2
+            - southcentralus
+            - westus2
+            - westus3
+            - australiaeast
+            - southeastasia
+            - northeurope
+            - swedencentral
+            - uksouth
+            - westeurope
+            - centralus
+            - southafricanorth
+            - centralindia
+            - eastasia
+            - japaneast
+            - koreacentral
+            - canadacentral
+            - francecentral
+            - germanywestcentral
+            - norwayeast
+            - switzerlandnorth
+            - uaenorth
+            - brazilsouth
+            - centraluseuap
+            - eastus2euap
+            - qatarcentral
+            - centralusstage
+            - eastusstage
+            - eastus2stage
+            - northcentralusstage
+            - southcentralusstage
+            - westusstage
+            - westus2stage
+            - asia
+            - asiapacific
+            - australia
+            - brazil
+            - canada
+            - europe
+            - france
+            - germany
+            - global
+            - india
+            - japan
+            - korea
+            - norway
+            - singapore
+            - southafrica
+            - switzerland
+            - uae
+            - uk
+            - unitedstates
+            - unitedstateseuap
+            - eastasiastage
+            - southeastasiastage
+            - brazilus
+            - eastusstg
+            - northcentralus
+            - westus
+            - jioindiawest
+            - devfabric
+            - westcentralus
+            - southafricawest
+            - australiacentral
+            - australiacentral2
+            - australiasoutheast
+            - japanwest
+            - jioindiacentral
+            - koreasouth
+            - southindia
+            - westindia
+            - canadaeast
+            - francesouth
+            - germanynorth
+            - norwaywest
+            - switzerlandwest
+            - ukwest
+            - uaecentral
+            - brazilsoutheast
+        - name: serviceFamily
+          in: query
+          description: Service family of the SKU. Use only these service families.
+          required: true
+          schema:
+            type: string
+            enum:
+            - Networking
+            - Azure Communication Services
+            - Other
+            - AI + Machine Learning
+            - Quantum Computing
+            - Compute
+            - Internet of Things
+            - Integration
+            - Web
+            - Storage
+            - Analytics
+            - Microsoft Syntex
+            - Windows Virtual Desktop
+            - Developer Tools
+            - Management and Governance
+            - Azure Stack
+            - Security
+            - Containers
+            - Data
+            - Databases
+        - name: productName
+          in: query
+          description: Product name of the SKU. Use only these product names. 
+          required: true
+          schema:
+            type: string
+            enum:
+            - Virtual Machines Ddv5 Series Windows
+            - SQL Database Single/Elastic Pool General Purpose - Compute DC-Series
+            - Azure Database for MariaDB General Purpose - Large-Scale Storage
+            - Microsoft Defender for Storage
+            - Virtual Machines Dplsv5 Series Windows
+            - Azure App Service Premium v3 Plan - Linux
+            - Virtual Machines Dsv5 Series Windows
+            - Azure Virtual Desktop
+            - Azure Database Migration Service Basic Compute
+            - Standard Page Blob v2
+            - Azure Redis Cache Enterprise
+            - Azure Cosmos DB Analytics Storage
+            - SQL Managed Instance General Purpose - Premium Series Compute
+            - Easv4 Series Dedicated Host
+            - Virtual Machines DSv2 Series
+            - Azure Database for PostgreSQL Flexible Server Backup Storage
+            - SSIS Standard A-series v2 VM
+            - Azure App Service Isolated v2 Plan
+            - Azure Cosmos DB Dedicated Gateway - Memory Optimized
+            - DCasv5 series DedicatedHost
+            - Esv5 Series DedicatedHost
+            - Easv5 Series DedicatedHost
+            - Queues
+            - Virtual Machines Edsv4 Series
+            - Computer Vision - disconnected
+            - Ebsv5 Series Dedicated Host
+            - Virtual Machines LS Series Windows
+            - Short Codes - Provisioning - I
+            - Toll Free SMS-IB-Surcharge-I
+            - HDInsight ID Broker
+            - DCsv3 Series DedicatedHost
+            - Virtual Machines Esv5 Series
+            - Geographic Numbers
+            - Azure Active Directory B2X
+            - Virtual Machines FS Series
+            - Microsoft Defender for SQL
+            - Azure Immersive Reader
+            - Azure Synapse Analytics Serverless Apache Spark Pool - Memory Optimized
+            - DCsv3 Series Linux
+            - Virtual Machines ECadsccv5 Series
+            - Dasv5 Series Dedicated Host
+            - IP Addresses
+            - Azure App Service Premium Windows Container Plan
+            - Virtual Machines Ddsv5 Series Windows
+            - Microsoft Genomics
+            - Dsv5 Series DedicatedHost
+            - Toll Free Calls - Outbound - I
+            - Virtual Machines A Series Basic
+            - Azure Synapse Analytics Serverless Apache Spark Pool - GPU
+            - Email
+            - Virtual Machines A Series Basic Windows
+            - Service Fabric Mesh - Volume Disks
+            - Configuration Management
+            - Chat
+            - SQL Database SingleDB Hyperscale - Premium Series Memory Optimized Compute
+            - HDInsight FS Series
+            - Azure Database for PostgreSQL Single Server General Purpose - Compute Gen5
+            - ExpressRoute Ultra High Performance Gateway
+            - Azure Synapse SSIS Standard D-series v3 VM
+            - Virtual Machines Ebsv5 Series Windows
+            - Virtual Machines Easv4 Series Windows
+            - Virtual Machines Dsv4 Series Windows
+            - Azure Synapse SSIS Enterprise D-series v3 VM
+            - Cloud Services LS Series
+            - Edsv4 Series Dedicated Host
+            - Azure Database for PostgreSQL Flexible Server General Purpose - Ddsv5 Series Compute
+            - Azure Arc Enabled PostgreSQL Hyperscale
+            - Azure Orbital High Performance Gateway
+            - Azure Synapse SSIS Standard A-series v2 VM
+            - Text Analytics Container
+            - Azure App Service Basic Plan
+            - SQL Database Elastic Pool - Premium RS
+            - Azure Spring Apps
+            - HDInsight FSv2 Series
+            - Azure Synapse Analytics Data Explorer
+            - Process Automation
+            - HDInsight F Series
+            - Virtual Machines NVadsA10v5 Series Windows
+            - Cosmos DB Compute Attached SSD Disk
+            - Translation
+            - Premium Functions
+            - Azure Database for MySQL Flexible Server Business Critical Ev3 Series Compute
+            - Azure Database for MySQL Single Server Memory Optimized - Compute Gen5
+            - Syntex Summarization
+            - Virtual Machines DSv3 Series
+            - Azure Database for MySQL Flexible Server General Purpose Ddsv4 Series Compute
+            - Azure Lab Services
+            - Media Indexer v1
+            - Azure Redis Cache Isolated
+            - Intelligent Recommendations
+            - Azure Data Lake Storage Gen2 Flat Namespace
+            - Virtual Machines A Series
+            - HDInsight Av2 Series
+            - Logic Apps Integration Service Environment - Developer
+            - Virtual Machines A Series Windows
+            - Azure Database for MySQL Single Server Basic - Storage
+            - Backup Reserved Capacity
+            - Virtual Machines Esv5 Series Windows
+            - Toll Free SMS - Outbound - I
+            - Azure App Service Premium Plan
+            - Azure Synapse Analytics Dedicated SQL Pool
+            - Azure Analysis Services Standard v2
+            - Ultra Disks
+            - Azure Cosmos DB - PITR
+            - Translator Text
+            - Azure Database for MariaDB Single Server General Purpose - Compute Gen4
+            - SQL Managed Instance Business Critical - Premium Series Memory Optimized Compute
+            - Virtual Machines ECasccv5 Series Windows
+            - Azure Data Factory v2 Wrangling Data Flow - General Purpose
+            - Virtual Machines Easv5 Series Windows
+            - Virtual Machines DCSv2 Series
+            - File Sync
+            - Toll Free SMS-OB-Surcharge-I
+            - NCads A100 v4 Series Linux
+            - SQL Database Single Premium RS
+            - Syntex Backup
+            - Speaker Recognition
+            - Azure Video Indexer
+            - ECadsv5 series DedicatedHost
+            - IoT Central
+            - Machine Learning service
+            - Azure Synapse Analytics Hyperscale
+            - Azure Database for PostgreSQL Single Server - Backup Storage
+            - Az DB for MySQL Flex Svr Backup Storage
+            - Virtual Machines Dldsv5 Series
+            - Virtual Machines Dpdsv5 Series
+            - Dasv4 Series Dedicated Host
+            - Pre-built understanding
+            - Azure Redis Cache Memory Optimized
+            - DCasv5-series Linux
+            - Virtual Machines NVSv3 Series
+            - Virtual Machines Esv4 Series Windows
+            - Virtual Machines NCSv3 Series
+            - Virtual Machines DCasccv5 Series
+            - Virtual Machines Eav4 Series
+            - Azure Database for PostgreSQL Single Server General Purpose - Storage
+            - Azure Form Recognizer - disconnected
+            - Virtual Machines NV Series Windows
+            - Azure Arc enabled SQL Managed Instance General Purpose
+            - SQL Managed Instance Hyperscale - Compute Gen4
+            - Virtual Machines Ebsv5 Series
+            - Azure Database for MySQL Flexible Server Business Critical Compute
+            - Azure Synapse Analytics Data Flow - Basic
+            - Virtual Machines Dpldsv5 Series
+            - Data Box
+            - Speaker Verification
+            - Azure Database for MariaDB Single Server Memory Optimized - Compute Gen5
+            - Logic Apps Integration Account
+            - Key Vault
+            - HDInsight Eav4/Easv4 Series
+            - DCsv2 Series Dedicated Host
+            - Virtual Machines FSv2 Series
+            - SQL Database Single General Purpose - Serverless - Compute DC-Series
+            - Azure Site Recovery
+            - Emotion
+            - Azure App Service Basic Plan - Linux
+            - Premium Page Blob
+            - Defender External Attack Surface Management
+            - Virtual Machines Dpsv5 Series
+            - Virtual Machines NV Series
+            - Azure Redis Cache Standard
+            - Geographic Numbers - I
+            - Application Gateway Standard v2
+            - Toll Free SMS - Inbound
+            - SQL Managed Instance Business Critical - Premium Series Compute
+            - Azure Purview Scanning Ingestion and Classification
+            - Azure Redis Cache General Purpose
+            - Azure Data Factory v2
+            - Azure Data Share
+            - Toll Free Numbers
+            - Virtual Machines NCSv3 Series Windows
+            - DCasv5-series Windows
+            - SQL Database Elastic Pool - Premium
+            - Virtual Machines Ev4 Series
+            - Azure Synapse SSIS Enterprise E-series v4 VM
+            - Azure Databricks
+            - Language Understanding
+            - Azure Database for MySQL Single Server General Purpose - Compute Gen5
+            - Voice and Video Calling
+            - Azure Database Migration Service Premium Compute
+            - Microsoft Playwright Testing
+            - Toll Free Numbers - I
+            - Service Bus
+            - Virtual Machines Ev4 Series Windows
+            - Fabric Capacity
+            - Virtual Machines NC Series
+            - Virtual Machines NVSv3 Series Windows
+            - Azure Database for PostgreSQL Flexible Server Burstable BS Series Compute
+            - Ebdsv5 Series Dedicated Host
+            - Cloud Services G Series
+            - VPN Gateway
+            - Azure Orbital - Microsoft Global Network
+            - SQL Database Single/Elastic Pool Business Critical - Compute Gen5
+            - Virtual Machines Dadsv5 Series Windows
+            - FSv2 Series Dedicated Host
+            - Media Analytics
+            - Azure Database for MariaDB Single Server Basic - Storage
+            - Azure Data Factory
+            - Ddsv4 Series Dedicated Host
+            - Microsoft Defender for IoT - Agentless
+            - Premium Block Blob
+            - Azure Redis Cache Enterprise Flash
+            - Import/Export
+            - Premium ADLS Gen2 Hierarchical Namespace
+            - Web Language Model
+            - Virtual Machines LSv2 Series
+            - Azure Database for MySQL Single Server Basic - Compute Gen5
+            - Virtual Machines Easv5 Series
+            - Azure Redis Cache Premium
+            - Notification Hubs
+            - Syntex Unstructured Document Processing
+            - Azure Purview Data Map
+            - Virtual Machines Dv5 Series Windows
+            - Azure Managed Instance for Apache Cassandra - Compute
+            - Azure Database for PostgreSQL Flexible Server Memory Optimized Edsv5 Series Compute
+            - Azure Analysis Services Basic
+            - BareMetal Infrastructure
+            - Azure confidential ledger
+            - Azure Synapse SSIS Enterprise E-series v3 VM
+            - Azure Analysis Services Developer
+            - Video On Demand Encoding
+            - Virtual Machines Av2 Series Windows
+            - Premium Files Reserved Capacity
+            - Microsoft Azure Payment HSM
+            - Azure Orbital Standard Gateway
+            - Syntex Taxonomy Tagging
+            - Azure Synapse SSIS Enterprise A-series v2 VM
+            - Azure Managed Grafana
+            - Virtual Machines DSv2 promo Series
+            - Blob Features
+            - Virtual Machines Dldsv5 Series Windows
+            - Files v2
+            - SQL Database Single/Elastic Pool Business Critical - Compute M Series
+            - Storage Reserved Capacity
+            - Azure Quantum Inspired Optimization
+            - Virtual Machines Dpldsv5 Series Windows
+            - Logic Apps
+            - SSIS Enterprise E-series v3 VM
+            - HDInsight ESv3 Series
+            - Graph API - General Purpose Compute
+            - Azure App Service Standard Plan
+            - Azure Database for PostgreSQL General Purpose - Large-Scale Storage
+            - Change Feed
+            - Virtual Machines Dadsv5 Series
+            - DCdsv3 Series Windows
+            - Azure Arc Enabled PostgreSQL
+            - Graph API - Memory Optimized Compute
+            - Azure VMware Solution by CloudSimple
+            - Virtual Machines F Series
+            - Azure Synapse SSIS Standard E-series v4 VM
+            - Virtual Machines DS Series
+            - Virtual Machines Ddsv4 Series
+            - Virtual Machines Av2 Series
+            - Event Hubs
+            - Data Box Gateway
+            - Virtual Machines Edsv5 Series
+            - Azure Data Factory v2 Data Flow - Memory Optimized
+            - Azure Database for MariaDB Single Server General Purpose - Compute Gen5
+            - Virtual Machines Ddsv4 Series Windows
+            - Azure Database for PostgreSQL Flexible Server Memory Optimized Edsv4 Series Compute
+            - Azure Arc Enabled PostgreSQL Hyperscale - SQL License
+            - Azure Database for PostgreSQL Flexible Server Memory Purpose Eadsv5 Series Compute
+            - Container Instances with GPU
+            - SQL Managed Instance General Purpose - Storage
+            - Global Virtual Network Peering
+            - ExpressRoute Standard Gateway
+            - Azure App Service SSL Connections
+            - Cloud Services Dv2 Series
+            - Virtual Machines Ddsv5 Series
+            - Virtual Machines Edsv5 Series Windows
+            - Azure Kubernetes Service
+            - Content Protection
+            - SQL Managed Instance General Purpose - Premium Series Memory Optimized Compute
+            - Local Calls - Outbound
+            - Files Reserved Capacity
+            - SQL Server Stretch Database
+            - Azure DDOS Protection
+            - Azure Database for MySQL Standard Compute
+            - Optical Character Recognition
+            - SSIS Standard E-series v3 VM
+            - Media Reserved Units
+            - Azure Chaos Studio
+            - Azure Firewall
+            - Virtual Machines GS Series Windows
+            - DCadsv5-series Windows
+            - Data Box Heavy
+            - Azure Database for PostgreSQL Single Server Basic - Compute Gen5
+            - Virtual Machines Easv4 Series
+            - Azure App Service Isolated v2 Plan - Linux
+            - General Block Blob
+            - Virtual Machines Dv3 Series Windows
+            - Virtual Machines DCadsccv5 Series
+            - TURN – Regional
+            - Virtual Machines Dv2 Series Windows
+            - Speech - disconnected
+            - Microsoft Defender for Resource Manager
+            - ECasv5-series Linux
+            - MS Series Dedicated Host
+            - Speaker Identification
+            - SQL Database Single Premium
+            - SQL Database Single/Elastic Pool Business Critical - Compute DC-Series
+            - Application Insights
+            - Azure Cosmos DB for PostgreSQL Compute- Burstable
+            - SQL Managed Instance - LTR Backup Storage
+            - SQL Database SingleDB Hyperscale - LTR Backup Storage
+            - Translator Text - disconnected
+            - SSIS Enterprise A-series v2 VM
+            - Edsv5 Series DedicatedHost
+            - Language - disconnected
+            - Azure Synapse Analytics Storage
+            - Cloud Services D Series
+            - Azure NetApp Files
+            - Microsoft Defender for Containers
+            - Azure Orbital Ground Station
+            - Virtual Machines Dpsv5 Series Windows
+            - Virtual Machines Dplsv5 Series
+            - SQL Database Single Free
+            - Virtual Machines Dlsv5 Series Windows
+            - Web PubSub
+            - Azure Databricks Regional
+            - Virtual Machines FS Series Windows
+            - Application Gateway WAF v2
+            - Standard HDD Managed Disks
+            - Virtual Machines NCasT4 v3 Series Windows
+            - Azure Cosmos DB for PostgreSQL Compute- Worker Node
+            - Azure Database for MySQL Flexible Server General Purpose Dv3 Series Compute
+            - Azure App Service Free Plan - Linux
+            - SQL Database SingleDB Hyperscale - Serverless - Read Repl - Compute Gen5
+            - DCadsv5-series Linux
+            - Azure Data Factory v2 Wrangling Data Flow - Compute Optimized
+            - ESv3 Series Dedicated Host
+            - Virtual Machines Epdsv5 Series Windows
+            - Short Codes - Leasing - Standard Number - I
+            - Streaming Units
+            - Azure Database for PostgreSQL Standard Compute
+            - General Block Blob v2
+            - Virtual Machines Ebdsv5 Series Windows
+            - Azure Data Factory v2 Wrangling Data Flow - Memory Optimized
+            - Specialized Compute Azure VMware Solution
+            - Azure Database for MariaDB Single Server - Backup Storage
+            - SQL Database Single/Elastic Pool PITR Backup Storage
+            - Virtual Machines Ev3 Series Windows
+            - Azure Bastion
+            - Event Grid
+            - Virtual Machines Dv2 promo Series
+            - Key Vault HSM Pool
+            - Toll Free SMS-IB-Surcharge
+            - SQL Database SingleDB Hyperscale - Compute DC-Series
+            - SSIS Standard D-series v2 VM
+            - Virtual Machines BS Series
+            - Azure Database for PostgreSQL Single Server Memory Optimized - Compute Gen5
+            - Virtual Machines H Series Windows
+            - Short Codes - Leasing - Vanity Number - I
+            - App Configuration
+            - File System Caching Service
+            - Azure App Service Standard Plan - Linux
+            - Sentinel
+            - Virtual Machines Edv5 Series Windows
+            - Virtual WAN
+            - Public IP Prefix
+            - Live Channels
+            - Face
+            - Toll Free SMS-OB-Surcharge
+            - Blob Lifecycle Management
+            - Azure App Service Premium v3 Plan
+            - SSIS Standard E-series v4 VM
+            - Virtual Machines Ddv4 Series Windows
+            - Virtual Machines Dv3 Series
+            - Virtual Machines Lsv3 Series Windows
+            - Azure Cognitive Search
+            - Azure Database Migration Service General Purpose Storage
+            - Tables
+            - DCdsv3 Series DedicatedHost
+            - Insight and Analytics
+            - SQL Database Single General Purpose - Serverless - Compute Gen5
+            - SQL Managed Instance Business Critical - Compute Gen5
+            - Blob Storage
+            - Virtual Machines Ev3 Series
+            - Azure Firewall Manager
+            - DSv3 Series Dedicated Host
+            - Virtual Machines Dasv4 Series Windows
+            - Short Codes - Outbound - Surcharge - I
+            - SQL Database Single/Elastic Pool General Purpose - Compute Gen5
+            - Local Calls - Outbound - I
+            - Azure Database for MariaDB Single Server General Purpose - Storage
+            - Azure Monitor
+            - Virtual Machines Eav4 Series Windows
+            - SQL Database Single/Elastic Pool Business Critical - Storage
+            - Short Codes - Inbound - I
+            - NCads A100 v4 Series Windows
+            - Azure Database for MySQL Single Server - Backup Storage
+            - Azure Stack Edge
+            - Virtual Machines MdSv2 Series Windows
+            - Files
+            - Azure Synapse SSIS Enterprise D-series v2 VM
+            - Azure Synapse Analytics Data Flow - Standard
+            - Azure Database for PostgreSQL Flexible Server General Purpose Dadsv5 Series Compute
+            - Microsoft Defender for MySQL
+            - IoT Hub Device Provisioning
+            - Virtual Machines Edsv4 Series Windows
+            - Cloud Services H Series
+            - DCsv3 Series Windows
+            - Virtual Machines FSv2 Series Windows
+            - Local Calls - Inbound
+            - DCadsv5 series DedicatedHost
+            - HDInsight Storage
+            - Azure Orbital - Internet
+            - Virtual Machines NC Series Windows
+            - Virtual Machines Basv2 Series
+            - Virtual Machines Ev5 Series Windows
+            - Azure Database for MySQL Single Server General Purpose - Storage
+            - Virtual Machines Edv4 Series
+            - Functions
+            - Microsoft Defender for DNS
+            - Azure Database for MySQL Flexible Server Business Critical Ev5 Series Compute
+            - Azure Cosmos DB Dedicated Gateway - General Purpose
+            - Content Assembly
+            - SQL Database - LTR Backup Storage
+            - General Block Blob v2 Hierarchical Namespace
+            - SQL Database SingleDB/Elastic Pool Hyperscale - Compute Gen5
+            - Azure Database for PostgreSQL Flexible Server General Purpose Dsv3 Series Compute
+            - Virtual Machines DCadsccv5 Series Windows
+            - Lasv3 Series Windows
+            - Virtual Machines ESv3 Series
+            - Virtual Machines Bpsv2 Series
+            - Virtual Machines Epdsv5 Series
+            - Virtual Machines Dlsv5 Series
+            - Container Compute
+            - Azure Active Directory Domain Services
+            - Azure Redis Cache Basic
+            - Virtual Machines Dv4 Series Windows
+            - Virtual Machines Dasv5 Series
+            - Cloud Services Dv3 Series
+            - Virtual Machines Eadsv5 Series Windows
+            - Virtual Machines Bsv2 Series Windows
+            - HDInsight G Series
+            - DSv4 Series Dedicated Host
+            - Virtual Machines DS Series Windows
+            - Media Redactor
+            - Azure App Service Isolated Plan
+            - Virtual Machines Epsv5 Series
+            - Azure Database for MariaDB Perf Optimized - Storage
+            - MSv2 Series Dedicated Host
+            - Ddsv5 Series DedicatedHost
+            - Azure Orbital Bandwidth
+            - SQL Database Single Standard
+            - MdSv2 Series Dedicated Host
+            - Virtual Machines LS Series
+            - Anomaly Detector
+            - Toll Free SMS - Inbound - I
+            - Log Analytics
+            - DCdsv3 Series Linux
+            - Azure Synapse Analytics Serverless SQL Pool
+            - Virtual Machines Eadsv5 Series
+            - Premium SSD Managed Disks
+            - Virtual Machines Esv4 Series
+            - Az DB for PostgreSQL Flexible Server Storage
+            - Azure Synapse Analytics Pipelines
+            - Computer Vision
+            - Microsoft Defender for App Service
+            - Microsoft Defender for Key Vault
+            - HDInsight Ev3 Series
+            - SSIS Enterprise D-series v2 VM
+            - Virtual Machines Dv4 Series
+            - Azure Database for MySQL Standard Storage
+            - Azure Database for PostgreSQL Single Server Basic Storage
+            - Azure Database for MySQL Single Server Basic Storage
+            - Azure Synapse Analytics SQL Disaster Recovery Storage
+            - Virtual Machines MSv2 Series
+            - SQL Database Single/Elastic Pool General Purpose - Storage
+            - Azure Synapse SSIS Standard E-series v3 VM
+            - Virtual Machines MS Series Windows
+            - SQL Database Premium - Storage
+            - Azure App Service Free Plan
+            - SQL Managed Instance Business Critical - Storage
+            - Power BI Premium Embedded
+            - Azure Premium SSD v2
+            - Stream Analytics
+            - Azure Dedicated HSM
+            - Virtual Machines NVSv2 Series
+            - Language Understanding - disconnected
+            - ExpressRoute Gateway
+            - HDInsight NC Series
+            - Virtual Machines Epsv5 Series Windows
+            - Language
+            - SQL Database Single/Elastic Pool General Purpose - Compute FSv2 Series
+            - Virtual Machines Ddv4 Series
+            - Virtual Machines Ev5 Series
+            - Virtual Machines Dsv4 Series
+            - Queues v2
+            - Premium Block Blob v2 Hierarchical Namespace
+            - ESv4 Series Dedicated Host
+            - Speech
+            - Azure App Service Isolated Plan - Linux
+            - Microsoft Defender for IoT - Managed IoT
+            - Virtual Machines DSv2 Series Windows
+            - Time Series Insights
+            - Dadsv5 Series Dedicated Host
+            - Azure Synapse Analytics Managed VNET
+            - SSIS Standard D-series v3 VM
+            - WAF Application Gateway
+            - Virtual Machines Edv5 Series
+            - Premium ADLS Gen2 Flat Namespace
+            - Virtual Machines DSv3 Series Windows
+            - Azure Arc Enabled PostgreSQL Hyperscale - Compute
+            - Standard Page Blob
+            - Azure App Service Premium v2 Plan - Linux
+            - Azure Form Recognizer
+            - Virtual Machines MS Series
+            - Azure Database for MariaDB Single Server Basic - Compute Gen4
+            - Virtual Machines Dasv5 Series Windows
+            - Virtual Machines MdSv2 Series
+            - ECasv5 series DedicatedHost
+            - BizTalk Services
+            - Network Watcher
+            - Azure Database for MySQL General Purpose - Large-Scale Storage
+            - Lasv3 Series DedicatedHost
+            - Azure Managed Lustre
+            - HDInsight A Series
+            - SQL Database SingleDB Hyperscale - Storage
+            - Power BI Embedded
+            - Reliable Collections
+            - Virtual Machines G Series Windows
+            - Azure Metrics Advisor
+            - Cloud Services A Series
+            - Virtual Machines MSv2 Series Windows
+            - Virtual Machines NVadsA10v5 Series
+            - SSIS Enterprise E-series v4 VM
+            - Eadsv5 Series DedicatedHost
+            - Azure Cosmos DB for PostgreSQL Compute- Coordinator Node
+            - Virtual Machines Dav4 Series Windows
+            - Azure VMware Solution by Virtustream
+            - Storage - Bandwidth
+            - Azure Cosmos DB
+            - Azure Cosmos DB autoscale
+            - Virtual Machines NCasT4 v3 Series
+            - SQL Database Single Basic
+            - Virtual Machines H Series
+            - Microsoft Defender for Azure Cosmos DB
+            - SSIS Enterprise D-series v3 VM
+            - Cloud Services Av2 Series
+            - Virtual Machines Lsv3 Series
+            - Virtual Machines Dv5 Series
+            - Azure Database for MariaDB Single Server Basic - Compute Gen5
+            - Virtual Machines D Series
+            - Virtual Machines Dasv4 Series
+            - ECasv5-series Windows
+            - IoT Hub
+            - Data Catalog
+            - Azure Data Explorer
+            - Azure Database for PostgreSQL Single Server Basic - Storage
+            - Microsoft Defender for MariaDB
+            - Cloud Services FSv2 Series
+            - LSv2 Series Dedicated Host
+            - Azure Arc enabled SQL Managed Instance Developer
+            - Virtual Machines DCSv2 Series Windows
+            - ECadsv5-series Linux
+            - SQL Database SingleDB Hyperscale – Serverless – Compute Gen5
+            - SQL Database Elastic Pool - Standard
+            - Virtual Machines Edv4 Series Windows
+            - Virtual Machines BS Series Windows
+            - Azure App Service Premium v2 Plan
+            - Logic Apps Integration Service Environment
+            - Azure Active Directory B2C
+            - Azure Cosmos DB Snapshot
+            - Virtual Machines Ddv5 Series
+            - NVSv3 Series Dedicated Host
+            - Virtual Machines ECasccv5 Series
+            - Container Registry
+            - Short Codes - Outbound - I
+            - Premium Files
+            - Azure Scheduler
+            - SQL Database Standard - Storage
+            - SQL Managed Instance General Purpose - Compute Gen5
+            - Backup
+            - Virtual Machines Dav4 Series
+            - API Management
+            - Azure Database for PostgreSQL Flexible Server Memory Optimized Esv3 Series Compute
+            - Virtual Machines Dv2 Series
+            - Azure Database for PostgreSQL Flexible Server General Purpose Ddsv4 Series Compute
+            - SQL Data Warehouse Compute Optimized Gen1
+            - Virtual Machines Bsv2 Series
+            - SQL Database Elastic Pool - Basic
+            - Lasv3 Series Linux
+            - Azure Database for MySQL Flexible Server Burstable BS Series Compute
+            - SQL Managed Instance PITR Backup Storage
+            - Microsoft Defender for PostgreSQL
+            - Virtual Machines Basv2 Series Windows
+            - Azure Data Factory v2 - Managed Airflow
+            - Container Instances
+            - Toll Free SMS - Outbound
+            - Azure Synapse Analytics SQL Storage
+            - ExpressRoute High Performance Gateway
+            - Azure Data Factory v2 Data Flow - General Purpose
+            - Virtual Machines LSv2 Series Windows
+            - Azure Synapse SSIS Standard D-series v2 VM
+            - Virtual Machines ECadsccv5 Series Windows
+            - Azure Data Factory v2 Data Flow - Compute Optimized
+            - Virtual Machines F Series Windows
+            - Azure Analysis Services Standard
+            - Toll Free Calls - Inbound - I
+            - Microsoft Defender for Servers
+            - Toll Free Calls - Outbound
+            - Virtual Machines DCasccv5 Series Windows
+            - Azure App Service Shared Plan
+            - Virtual Machines Ebdsv5 Series
+            - ECadsv5-series Windows
+            - HDInsight D Series
+            - Content Moderator
+            - Azure Cosmos DB serverless
+            - Virtual Machines D Series Windows
+            - Az DB for MySQL Flexible Server Storage
+            - Virtual Machines Dsv5 Series
+            - Standard SSD Managed Disks
+            - SQL Managed Instance Hyperscale - Storage
+            - Azure Cosmos DB for MongoDB vCore
+            - Azure Maps
+            - Stream Analytics on Edge
+            - Virtual Machines G Series
+            - Toll Free Calls - Inbound
+            - Cloud Services Ev3 Series
+            - Azure Database Migration Service General Purpose Compute
+            - Virtual Machines Dpdsv5 Series Windows
+            - SQL Managed Instance Hyperscale - Compute Gen5
+            - Azure Cosmos DB for PostgreSQL General Purpose Storage
+            - SQL Database SingleDB Hyperscale - Premium Series Compute
+            - Image Tagging
+            - Virtual Machines ESv3 Series Windows
+            - Virtual Machines GS Series
+            - Virtual Machines Bpsv2 Series Windows
+            - Direct Routing
+            - Local Calls - Inbound - I
+            - Azure Container Apps
+            - Lsv3 Series Dedicated Host
+            - Azure NetApp Files Reserved Capacity
+            - Azure Arc enabled SQL Managed Instance Business Critical
+            - Data Box Disk
+            - SignalR
+            - Basic Application Gateway
+            - Azure Data Lake Storage Gen2 Hierarchical Namespace
+            - Azure Database for PostgreSQL Standard Storage
+      responses:
+        "200":
+          description: OK
